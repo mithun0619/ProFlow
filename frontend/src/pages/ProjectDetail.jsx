@@ -300,18 +300,18 @@ const ProjectDetail = () => {
   const isOwner = project?.owner?._id === currentUser?._id || project?.owner === currentUser?._id;
 
   return (
-    <div className="flex flex-col gap-6 max-w-7xl mx-auto font-sans">
+    <div className="flex flex-col gap-6 max-w-7xl mx-auto font-sans animate-fade-in">
       {/* Upper Navigation Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-800/80 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-900 pb-5">
         <div>
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest block mb-1">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">
             Project Board
           </span>
-          <h1 className="text-2xl font-black text-white uppercase tracking-wider flex items-center gap-2.5">
-            <FiFolder className="text-primary-400 w-6 h-6" />
+          <h1 className="text-xl md:text-2xl font-black text-white uppercase tracking-wider flex items-center gap-2.5 text-gradient-premium">
+            <FiFolder className="text-primary-400 w-5 h-5" />
             {project?.name}
           </h1>
-          <p className="text-slate-400 text-xs font-light mt-1 max-w-2xl leading-relaxed">
+          <p className="text-slate-400 text-xs font-light mt-1.5 max-w-2xl leading-relaxed">
             {project?.description || 'No description provided for this board.'}
           </p>
         </div>
@@ -324,14 +324,14 @@ const ProjectDetail = () => {
               <div
                 key={m._id}
                 title={`${m.name} (${m.email})`}
-                className="w-8 h-8 rounded-lg border-2 border-dark-950 flex items-center justify-center font-bold text-white text-[10px]"
-                style={{ backgroundColor: m.avatarColor || '#6366f1' }}
+                className="w-7 h-7 rounded-full border-2 border-slate-950 flex items-center justify-center font-bold text-white text-[9px] shadow-sm animate-fade-in"
+                style={{ backgroundColor: m.avatarColor || '#8b5cf6' }}
               >
                 {getAvatarLetter(m.name)}
               </div>
             ))}
             {project?.members?.length > 5 && (
-              <div className="w-8 h-8 rounded-lg border-2 border-dark-950 bg-slate-800 text-[10px] text-slate-400 font-bold flex items-center justify-center">
+              <div className="w-7 h-7 rounded-full border-2 border-slate-950 bg-slate-900 text-[9px] text-slate-400 font-bold flex items-center justify-center shadow-sm">
                 +{project.members.length - 5}
               </div>
             )}
@@ -340,7 +340,7 @@ const ProjectDetail = () => {
           {isManagerOrAdmin && (
             <button
               onClick={() => setIsCollaboratorsModalOpen(true)}
-              className="p-2.5 rounded-xl border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer mr-2"
+              className="p-2.5 rounded-xl border border-slate-900 text-slate-300 hover:text-white hover:bg-slate-900/60 transition-colors cursor-pointer mr-1"
               title="Manage Collaborators"
             >
               <FiUserPlus className="w-4 h-4" />
@@ -350,7 +350,7 @@ const ProjectDetail = () => {
           {isManagerOrAdmin && (
             <button
               onClick={() => setIsEditProjectOpen(true)}
-              className="p-2.5 rounded-xl border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer"
+              className="p-2.5 rounded-xl border border-slate-900 text-slate-300 hover:text-white hover:bg-slate-900/60 transition-colors cursor-pointer mr-1"
               title="Edit Workspace Settings"
             >
               <FiEdit className="w-4 h-4" />
@@ -373,7 +373,7 @@ const ProjectDetail = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start mt-2">
         {/* LANES COMPILATION */}
         {[
-          { key: 'todo', title: 'To Do', border: 'border-slate-800' },
+          { key: 'todo', title: 'To Do', border: 'border-slate-900' },
           { key: 'in-progress', title: 'In Progress', border: 'border-primary-500/20' },
           { key: 'review', title: 'In Review', border: 'border-indigo-500/20' },
           { key: 'done', title: 'Completed', border: 'border-emerald-500/20' },
@@ -382,7 +382,7 @@ const ProjectDetail = () => {
           return (
             <div
               key={lane.key}
-              className={`flex flex-col gap-4 rounded-2xl bg-dark-900/60 border ${lane.border} p-4 shadow-sm`}
+              className={`flex flex-col gap-4 rounded-2xl bg-slate-950/40 border ${lane.border} p-4 shadow-sm backdrop-blur-md`}
             >
               {/* Lane Header */}
               <div className="flex items-center justify-between border-b border-slate-800/50 pb-2">
@@ -409,7 +409,7 @@ const ProjectDetail = () => {
               <div className="flex flex-col gap-3 min-h-[300px] overflow-y-auto max-h-[500px] pr-1">
                 {laneTasks.length === 0 ? (
                   <div className="my-auto flex items-center justify-center">
-                    <p className="text-slate-500 text-[10px] uppercase tracking-widest font-semibold text-center">
+                    <p className="text-slate-400 text-xs uppercase tracking-widest font-bold text-center">
                       Empty Lane
                     </p>
                   </div>
@@ -424,10 +424,10 @@ const ProjectDetail = () => {
                         key={task._id}
                         className="glass-panel rounded-xl p-4 border border-white/5 shadow-md flex flex-col gap-4 group relative overflow-hidden"
                       >
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2.5">
                           <div className="flex justify-between items-start gap-2">
                             <span
-                              className={`text-[8px] font-extrabold px-2 py-0.5 rounded-full border uppercase ${getPriorityColor(
+                              className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border uppercase ${getPriorityColor(
                                 task.priority
                               )}`}
                             >
@@ -455,18 +455,18 @@ const ProjectDetail = () => {
                             )}
                           </div>
 
-                          <h4 className="text-white font-bold text-xs leading-snug group-hover:text-primary-400 transition-colors">
+                          <h4 className="text-white font-extrabold text-sm leading-snug group-hover:text-primary-300 transition-colors">
                             {task.title}
                           </h4>
                           {task.description && (
-                            <p className="text-slate-400 text-[11px] font-light leading-relaxed line-clamp-2">
+                            <p className="text-slate-300 text-xs font-normal leading-relaxed line-clamp-2 mt-0.5">
                               {task.description}
                             </p>
                           )}
                         </div>
 
                         {/* Card Footer details */}
-                        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/50 pt-3 text-[10px] text-slate-500">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/50 pt-3 text-xs text-slate-400">
                           {/* Assignee display */}
                           <div className="flex items-center gap-1.5 overflow-hidden">
                             {task.assignedTo ? (
@@ -478,12 +478,12 @@ const ProjectDetail = () => {
                                 >
                                   {getAvatarLetter(task.assignedTo.name)}
                                 </div>
-                                <span className="truncate text-slate-400 max-w-[85px]">
+                                <span className="truncate text-slate-200 font-medium text-xs max-w-[85px]">
                                   {task.assignedTo.name}
                                 </span>
                               </>
                             ) : (
-                              <span className="italic text-slate-600">Unassigned</span>
+                              <span className="italic text-slate-400 text-xs">Unassigned</span>
                             )}
                           </div>
 
@@ -493,14 +493,14 @@ const ProjectDetail = () => {
                               <button
                                 disabled={lane.key === 'todo'}
                                 onClick={() => handleTaskStatusShift(task._id, lane.key, -1, taskAssignedId)}
-                                className="p-1 rounded bg-slate-850 hover:bg-slate-800 text-slate-400 disabled:opacity-30 cursor-pointer"
+                                className="p-1 rounded bg-slate-900 hover:bg-slate-850 text-slate-400 disabled:opacity-30 cursor-pointer"
                               >
                                 <FiChevronLeft className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 disabled={lane.key === 'done'}
                                 onClick={() => handleTaskStatusShift(task._id, lane.key, 1, taskAssignedId)}
-                                className="p-1 rounded bg-slate-850 hover:bg-slate-800 text-slate-400 disabled:opacity-30 cursor-pointer"
+                                className="p-1 rounded bg-slate-900 hover:bg-slate-850 text-slate-400 disabled:opacity-30 cursor-pointer"
                               >
                                 <FiChevronRight className="w-3.5 h-3.5" />
                               </button>
@@ -523,20 +523,20 @@ const ProjectDetail = () => {
       {isEditProjectOpen && isManagerOrAdmin && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
           <div onClick={() => setIsEditProjectOpen(false)} className="absolute inset-0"></div>
-          <div className="w-full max-w-lg glass-panel rounded-2xl border border-white/10 p-6 shadow-2xl relative z-10 animate-slide-in">
-            <div className="flex items-center justify-between mb-5 border-b border-slate-800/80 pb-3">
-              <h3 className="text-white font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
+          <div className="w-full max-w-lg glass-panel rounded-2xl border border-white/10 p-6 shadow-2xl relative z-10 animate-slide-up">
+            <div className="flex items-center justify-between mb-5 border-b border-slate-900 pb-3">
+              <h3 className="text-white font-extrabold text-sm uppercase tracking-wider flex items-center gap-2">
                 <FiEdit className="text-primary-400" />
                 Edit Workspace Settings
               </h3>
               <button onClick={() => setIsEditProjectOpen(false)} className="text-slate-400 hover:text-white cursor-pointer">
-                <FiX className="w-5 h-5" />
+                <FiX className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleUpdateProject} className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                   Workspace Name
                 </label>
                 <input
@@ -544,31 +544,31 @@ const ProjectDetail = () => {
                   required
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-200 focus:outline-none"
+                  className="modern-input"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                   Description
                 </label>
                 <textarea
                   rows="3"
                   value={editDesc}
                   onChange={(e) => setEditDesc(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-200 resize-none focus:outline-none"
+                  className="modern-input resize-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Status
                   </label>
                   <select
                     value={editStatus}
                     onChange={(e) => setEditStatus(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300 focus:outline-none cursor-pointer"
+                    className="modern-input cursor-pointer"
                   >
                     <option value="planning">Planning</option>
                     <option value="active">Active</option>
@@ -578,19 +578,19 @@ const ProjectDetail = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Target Completion Date
                   </label>
                   <input
                     type="date"
                     value={editDueDate}
                     onChange={(e) => setEditDueDate(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300 focus:outline-none cursor-pointer"
+                    className="modern-input cursor-pointer"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-4 border-t border-slate-800/80 pt-4">
+              <div className="flex justify-end gap-3 mt-4 border-t border-slate-900 pt-4">
                 <button
                   type="button"
                   onClick={() => setIsEditProjectOpen(false)}
@@ -600,7 +600,7 @@ const ProjectDetail = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white text-xs font-semibold transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-xs font-semibold text-white shadow-lg shadow-primary-600/15 flex items-center gap-1.5 cursor-pointer transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
                 >
                   Save Workspace
                 </button>
@@ -614,21 +614,21 @@ const ProjectDetail = () => {
       {isTaskModalOpen && isManagerOrAdmin && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
           <div onClick={closeTaskModal} className="absolute inset-0"></div>
-          <div className="w-full max-w-lg glass-panel rounded-2xl border border-white/10 p-6 shadow-2xl relative z-10 animate-slide-in">
-            <div className="flex items-center justify-between mb-5 border-b border-slate-800/80 pb-3">
-              <h3 className="text-white font-extrabold text-sm uppercase tracking-wide flex items-center gap-2">
-                <FiPlus className="text-primary-400 w-5 h-5" />
+          <div className="w-full max-w-lg glass-panel rounded-2xl border border-white/10 p-6 shadow-2xl relative z-10 animate-slide-up">
+            <div className="flex items-center justify-between mb-5 border-b border-slate-900 pb-3">
+              <h3 className="text-white font-extrabold text-sm uppercase tracking-wider flex items-center gap-2">
+                <FiPlus className="text-primary-400 w-4 h-4" />
                 {activeTaskId ? 'Edit Backlog Task' : 'Add Backlog Task'}
               </h3>
               <button onClick={closeTaskModal} className="text-slate-400 hover:text-white cursor-pointer">
-                <FiX className="w-5 h-5" />
+                <FiX className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleTaskSubmit} className="flex flex-col gap-4">
               {/* Task Title */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                   Task Title
                 </label>
                 <input
@@ -637,13 +637,13 @@ const ProjectDetail = () => {
                   placeholder="e.g. Design responsive UI cards"
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary-500"
+                  className="modern-input"
                 />
               </div>
 
               {/* Task Description */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                   Task Description
                 </label>
                 <textarea
@@ -651,20 +651,20 @@ const ProjectDetail = () => {
                   rows="3"
                   value={taskDesc}
                   onChange={(e) => setTaskDesc(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary-500 resize-none"
+                  className="modern-input resize-none"
                 />
               </div>
 
               {/* Priority & Status */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Priority
                   </label>
                   <select
                     value={taskPriority}
                     onChange={(e) => setTaskPriority(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-300 focus:outline-none focus:border-primary-500 cursor-pointer"
+                    className="modern-input cursor-pointer"
                   >
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
@@ -673,13 +673,13 @@ const ProjectDetail = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Backlog Lane Status
                   </label>
                   <select
                     value={taskStatus}
                     onChange={(e) => setTaskStatus(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-300 focus:outline-none focus:border-primary-500 cursor-pointer"
+                    className="modern-input cursor-pointer"
                   >
                     <option value="todo">To Do</option>
                     <option value="in-progress">In Progress</option>
@@ -692,13 +692,13 @@ const ProjectDetail = () => {
               {/* Assignee & Due Date */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Task Assignee
                   </label>
                   <select
                     value={taskAssignee}
                     onChange={(e) => setTaskAssignee(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-300 focus:outline-none focus:border-primary-500 cursor-pointer"
+                    className="modern-input cursor-pointer"
                   >
                     <option value="">Unassigned</option>
                     {companyUsers.map((m) => (
@@ -710,20 +710,20 @@ const ProjectDetail = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                  <label className="text-slate-300 text-[10px] font-bold uppercase tracking-wider">
                     Task Target Date
                   </label>
                   <input
                     type="date"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-300 focus:outline-none focus:border-primary-500 cursor-pointer"
+                    className="modern-input cursor-pointer"
                   />
                 </div>
               </div>
 
               {/* Form buttons */}
-              <div className="flex justify-end gap-3 mt-4 border-t border-slate-800/80 pt-4">
+              <div className="flex justify-end gap-3 mt-4 border-t border-slate-900 pt-4">
                 <button
                   type="button"
                   onClick={closeTaskModal}
@@ -734,7 +734,7 @@ const ProjectDetail = () => {
                 <button
                   type="submit"
                   disabled={taskLoading}
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-xs font-semibold text-white shadow-lg shadow-primary-600/15 flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-xs font-semibold text-white shadow-lg shadow-primary-600/15 flex items-center gap-1.5 cursor-pointer disabled:opacity-50 hover:scale-[1.01] active:scale-[0.99]"
                 >
                   {taskLoading ? 'Saving...' : activeTaskId ? 'Save Task' : 'Create Task'}
                 </button>

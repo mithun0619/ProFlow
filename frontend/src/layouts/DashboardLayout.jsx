@@ -120,7 +120,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex text-slate-200 font-sans">
+    <div className="min-h-screen bg-slate-950 flex text-slate-200 font-sans animate-fade-in">
       {/* Toast Notification Container */}
       <Toast />
 
@@ -128,30 +128,30 @@ const DashboardLayout = () => {
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-300 animate-fade-in"
         ></div>
       )}
 
       {/* SIDEBAR PANEL */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800/80 p-5 flex flex-col justify-between transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-950 border-r border-slate-900 p-5 flex flex-col justify-between transform transition-transform duration-350 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="flex flex-col gap-6">
           {/* Sidebar Header Title */}
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 mt-2">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary-600 to-indigo-400 flex items-center justify-center font-bold text-lg text-white shadow-lg shadow-primary-500/20">
+            <Link to="/" className="flex items-center gap-2.5 mt-1">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary-600 to-indigo-500 flex items-center justify-center font-black text-sm text-white shadow-lg shadow-primary-500/25">
                 P
               </div>
-              <span className="font-extrabold text-lg tracking-wider bg-gradient-to-r from-white via-slate-100 to-primary-200 bg-clip-text text-transparent">
+              <span className="font-black text-base tracking-wider text-gradient-premium">
                 PROFLOW
               </span>
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800/60"
+              className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-900/60"
             >
               <FiX className="w-5 h-5" />
             </button>
@@ -159,17 +159,20 @@ const DashboardLayout = () => {
 
           {/* Company Workspace Code Copier */}
           {user?.company && (
-            <div className="p-3 bg-slate-950/60 border border-slate-800/80 rounded-xl flex flex-col gap-1">
+            <div className="p-3.5 bg-slate-900/40 border border-slate-900/80 rounded-2xl flex flex-col gap-1 animate-slide-up">
               <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                Workspace: {user.company.name}
+                Workspace
               </span>
-              <div className="flex items-center justify-between gap-1.5 mt-0.5">
-                <span className="text-xs font-mono font-bold text-primary-400 select-all truncate">
+              <span className="text-[11px] font-semibold text-white truncate">
+                {user.company.name}
+              </span>
+              <div className="flex items-center justify-between gap-1.5 mt-1 pt-1.5 border-t border-slate-900/60">
+                <span className="text-[10px] font-mono font-bold text-primary-400 select-all truncate">
                   {user.company.companyCode}
                 </span>
                 <button
                   onClick={handleCopyCode}
-                  className="p-1 rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  className="p-1 rounded-md bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-white transition-colors cursor-pointer"
                   title="Copy Workspace Code"
                 >
                   {copied ? <FiCheck className="w-3.5 h-3.5 text-emerald-400" /> : <FiCopy className="w-3.5 h-3.5" />}
@@ -179,17 +182,17 @@ const DashboardLayout = () => {
           )}
 
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1.5">
             {navItems.map((item) => (
               <NavLink
                 key={item.name}
                 to={item.path}
                 onClick={() => setSidebarOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2.5 rounded-xl font-medium text-xs transition-all duration-200 ${
+                  `flex items-center gap-3 px-4 py-2.5 rounded-xl font-medium text-xs transition-all duration-200 border-l-2 ${
                     isActive
-                      ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/15'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                      ? 'bg-primary-600/10 text-primary-200 border-primary-500 font-semibold shadow-inner'
+                      : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-slate-900/40'
                   }`
                 }
               >
@@ -201,22 +204,22 @@ const DashboardLayout = () => {
         </div>
 
         {/* User Card inside Sidebar Footer */}
-        <div className="border-t border-slate-800/80 pt-4 mt-auto">
-          <div className="flex items-center gap-3 px-2 py-1.5 rounded-xl bg-slate-950/40 border border-slate-900/60 mb-3">
+        <div className="border-t border-slate-900 pt-4 mt-auto">
+          <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/40 border border-slate-900/60 mb-3">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white shadow-inner text-xs"
-              style={{ backgroundColor: user?.avatarColor || '#6366f1' }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white shadow-inner text-xs flex-shrink-0"
+              style={{ backgroundColor: user?.avatarColor || '#8b5cf6' }}
             >
               {getAvatarLetter(user?.name)}
             </div>
             <div className="overflow-hidden">
-              <h5 className="text-xs font-semibold text-white truncate leading-tight flex items-center gap-1.5">
+              <h5 className="text-xs font-bold text-white truncate leading-tight flex items-center gap-1.5">
                 {user?.name}
-                <span className="text-[8px] bg-slate-800 text-primary-400 px-1.5 py-0.5 rounded-full uppercase font-bold">
+                <span className="text-[8px] bg-slate-950 border border-slate-800 text-primary-400 px-1.5 py-0.5 rounded-full uppercase font-bold">
                   {user?.role}
                 </span>
               </h5>
-              <p className="text-[10px] text-slate-500 truncate font-light mt-0.5">
+              <p className="text-[9px] text-slate-500 truncate font-light mt-0.5">
                 {user?.email}
               </p>
             </div>
@@ -226,7 +229,7 @@ const DashboardLayout = () => {
             onClick={handleLogout}
             className="flex items-center gap-3 w-full px-4 py-2.5 rounded-xl font-medium text-xs text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-all duration-200 cursor-pointer"
           >
-            <FiLogOut className="w-5 h-5" />
+            <FiLogOut className="w-4 h-4" />
             Sign Out
           </button>
         </div>
@@ -235,18 +238,18 @@ const DashboardLayout = () => {
       {/* MAIN VIEWPORTS */}
       <div className="flex-grow flex flex-col min-w-0 lg:h-screen lg:overflow-y-auto relative">
         {/* TOP NAVBAR */}
-        <header className="h-16 px-4 md:px-8 bg-slate-900/80 border-b border-slate-800/80 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md">
+        <header className="h-16 px-6 md:px-8 bg-slate-950/40 border-b border-slate-900 flex items-center justify-between sticky top-0 z-30 backdrop-blur-lg">
           {/* Left: Mobile sidebar menu button */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-850"
+              className="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-900"
             >
               <FiMenu className="w-6 h-6" />
             </button>
-            <div className="hidden sm:block">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
-                Workspace / <strong className="text-slate-400 font-semibold">{user?.company?.name || 'Private'}</strong>
+            <div className="hidden sm:block animate-fade-in">
+              <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
+                Workspace / <strong className="text-slate-300 font-semibold">{user?.company?.name || 'Private'}</strong>
               </span>
             </div>
           </div>
@@ -257,13 +260,13 @@ const DashboardLayout = () => {
             <div className="relative">
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/60 transition-colors relative cursor-pointer"
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-900/60 transition-colors relative cursor-pointer"
               >
-                <FiBell className="w-5 h-5" />
+                <FiBell className="w-4 h-4" />
                 {unreadCount > 0 && (
                   <>
-                    <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-primary-500 animate-ping"></span>
-                    <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-primary-500 flex items-center justify-center text-[7px] text-white font-bold"></span>
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-500 animate-ping"></span>
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-500 flex items-center justify-center text-[7px] text-white font-bold"></span>
                   </>
                 )}
               </button>
@@ -275,9 +278,9 @@ const DashboardLayout = () => {
                     onClick={() => setShowNotifications(false)}
                     className="fixed inset-0 z-40"
                   ></div>
-                  <div className="absolute right-0 mt-3 w-[calc(100vw-2rem)] sm:w-80 rounded-2xl bg-slate-900 border border-slate-800/80 shadow-2xl p-4 glass-panel animate-slide-in z-50">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
-                      <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                  <div className="absolute right-0 mt-3 w-[calc(100vw-2rem)] sm:w-80 rounded-2xl glass-panel shadow-2xl p-4 animate-slide-up z-50">
+                    <div className="flex items-center justify-between border-b border-slate-900 pb-2.5 mb-3">
+                      <h4 className="text-[10px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                         <FiBell className="text-primary-400" /> Notifications Feed
                       </h4>
                       {unreadCount > 0 && (
@@ -291,8 +294,8 @@ const DashboardLayout = () => {
                     </div>
                     <div className="flex flex-col gap-2.5 max-h-[300px] overflow-y-auto pr-1">
                       {notifications.length === 0 ? (
-                        <div className="text-center py-6 text-slate-500 text-xs font-light">
-                          No notifications to log.
+                        <div className="text-center py-6 text-slate-500 text-[10px] uppercase tracking-wider font-medium">
+                          No notifications to log
                         </div>
                       ) : (
                         notifications.map((n) => (
@@ -300,7 +303,7 @@ const DashboardLayout = () => {
                             key={n._id}
                             className={`p-2.5 rounded-xl border text-[11px] leading-relaxed transition-all flex flex-col gap-1.5 relative group ${
                               n.isRead
-                                ? 'bg-slate-950/20 border-slate-850 text-slate-400'
+                                ? 'bg-slate-950/20 border-slate-900 text-slate-400'
                                 : 'bg-primary-500/5 border-primary-500/10 text-slate-200'
                             }`}
                           >
@@ -330,7 +333,7 @@ const DashboardLayout = () => {
                     <Link
                       to="/notifications"
                       onClick={() => setShowNotifications(false)}
-                      className="block text-center border-t border-slate-800 pt-2.5 mt-3 text-[10px] font-bold text-slate-400 hover:text-white transition-colors"
+                      className="block text-center border-t border-slate-900 pt-2.5 mt-3 text-[10px] font-bold text-slate-400 hover:text-white transition-colors"
                     >
                       View All Activity
                     </Link>
@@ -343,11 +346,11 @@ const DashboardLayout = () => {
             <div className="relative">
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-800/60 transition-colors cursor-pointer"
+                className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-900/60 transition-colors cursor-pointer"
               >
                 <div
                   className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-white text-[11px]"
-                  style={{ backgroundColor: user?.avatarColor || '#6366f1' }}
+                  style={{ backgroundColor: user?.avatarColor || '#8b5cf6' }}
                 >
                   {getAvatarLetter(user?.name)}
                 </div>
@@ -364,11 +367,11 @@ const DashboardLayout = () => {
                     onClick={() => setUserDropdownOpen(false)}
                     className="fixed inset-0 z-30"
                   ></div>
-                  <div className="absolute right-0 mt-2 w-48 rounded-xl bg-slate-900 border border-slate-800/80 p-1.5 shadow-2xl glass-panel animate-slide-in z-45">
+                  <div className="absolute right-0 mt-2 w-48 rounded-xl glass-panel p-1.5 shadow-2xl animate-slide-up z-45">
                     <Link
                       to="/profile"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-lg transition-colors"
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900/40 rounded-lg transition-colors"
                     >
                       <FiUser className="w-4 h-4 text-slate-400" />
                       My Profile
@@ -391,7 +394,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* DYNAMIC SCENE PAGE CONTENT CONTAINER */}
-        <main className="flex-grow p-4 md:p-8">
+        <main className="flex-grow p-5 md:p-8 animate-fade-in">
           <Outlet />
         </main>
       </div>

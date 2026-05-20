@@ -37,33 +37,33 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden select-none font-sans">
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden select-none font-sans animate-fade-in">
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary-600/10 rounded-full blur-3xl glow-indigo"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-3xl glow-pink"></div>
+      <div className="absolute top-1/4 left-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-primary-600/10 rounded-full blur-3xl glow-primary"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-indigo-500/10 rounded-full blur-3xl glow-pink"></div>
 
-      <div className="w-full max-w-md animate-slide-in relative z-10">
+      <div className="w-full max-w-md animate-slide-up relative z-10">
         {/* App Logo & Header */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-primary-600 to-indigo-400 flex items-center justify-center font-bold text-xl text-white shadow-xl shadow-primary-500/20 mb-4 animate-pulse">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-primary-600 to-indigo-500 flex items-center justify-center font-black text-lg text-white shadow-xl shadow-primary-500/25 mb-4 hover:rotate-6 transition-transform duration-300">
             P
           </div>
-          <h2 className="text-2xl font-black tracking-wide text-white mb-1 uppercase">
+          <h2 className="text-xl md:text-2xl font-black tracking-wide text-white mb-1 uppercase text-gradient-premium">
             Sign In to Workspace
           </h2>
-          <p className="text-slate-400 text-xs font-light tracking-wide">
+          <p className="text-slate-400 text-xs font-light tracking-wide text-center">
             Manage your project workspaces and team goals
           </p>
         </div>
 
         {/* Auth Glass Card */}
-        <div className="bg-slate-900/40 backdrop-blur-xl border border-white/5 rounded-2xl p-8 shadow-2xl">
+        <div className="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             
             {/* Company Code Field */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
-                Company Code
+            <div className="flex flex-col gap-2">
+              <label className="text-slate-200 text-xs font-bold uppercase tracking-wider">
+                Company Workspace Code
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
@@ -72,17 +72,17 @@ const Login = () => {
                 <input
                   type="text"
                   required
-                  placeholder="COM-123456"
+                  placeholder="COM-BHARAT"
                   value={companyCode}
                   onChange={(e) => setCompanyCode(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  className="modern-input modern-input-with-icon"
                 />
               </div>
             </div>
 
             {/* Email Field */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+            <div className="flex flex-col gap-2">
+              <label className="text-slate-200 text-xs font-bold uppercase tracking-wider">
                 Email Address
               </label>
               <div className="relative">
@@ -92,17 +92,17 @@ const Login = () => {
                 <input
                   type="email"
                   required
-                  placeholder="name@company.com"
+                  placeholder="aarav@bharattech.in"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  className="modern-input modern-input-with-icon"
                 />
               </div>
             </div>
 
             {/* Password Field */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-slate-300 text-xs font-semibold uppercase tracking-wider">
+            <div className="flex flex-col gap-2">
+              <label className="text-slate-200 text-xs font-bold uppercase tracking-wider">
                 Password
               </label>
               <div className="relative">
@@ -115,7 +115,7 @@ const Login = () => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-primary-500 transition-colors"
+                  className="modern-input modern-input-with-icon"
                 />
               </div>
             </div>
@@ -124,7 +124,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={localLoading}
-              className="mt-2 w-full py-3 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-xs font-semibold text-white shadow-lg shadow-primary-600/15 hover:shadow-primary-600/25 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className="mt-3 w-full py-3 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-500 hover:to-indigo-500 text-sm font-semibold text-white shadow-lg shadow-primary-600/15 hover:shadow-primary-600/25 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 hover:scale-[1.01] active:scale-[0.99]"
             >
               {localLoading ? (
                 <>
@@ -139,11 +139,11 @@ const Login = () => {
 
           {/* Prompt to register */}
           <div className="mt-6 text-center">
-            <p className="text-slate-400 text-xs font-light">
+            <p className="text-slate-300 text-sm font-light">
               Need to register a company workspace?{' '}
               <Link
                 to="/register"
-                className="font-medium text-primary-400 hover:text-primary-300 hover:underline transition-colors ml-1"
+                className="font-semibold text-primary-400 hover:text-primary-300 hover:underline transition-colors ml-1"
               >
                 Register Workspace
               </Link>

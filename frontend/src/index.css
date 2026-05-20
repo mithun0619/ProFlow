@@ -1,16 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 /* Define Custom Premium Design Theme Tokens for Tailwind v4 */
 @theme {
   --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
   
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-900: #312e81;
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-500: #a78bfa;
+  --color-primary-600: #8b5cf6;
+  --color-primary-700: #7c3aed;
+  --color-primary-900: #4c1d95;
 
   --color-dark-50: #f8fafc;
   --color-dark-100: #f1f5f9;
@@ -22,61 +23,77 @@
 /* Custom Base Styles */
 @layer base {
   body {
-    @apply bg-dark-950 text-slate-100 antialiased selection:bg-primary-500/30 selection:text-primary-200 overflow-x-hidden;
+    @apply bg-slate-950 text-slate-100 antialiased selection:bg-primary-600/30 selection:text-primary-200 overflow-x-hidden;
   }
 }
 
-/* Glassmorphism Panel styles */
+/* Glassmorphism Panel styles - with high contrast background */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(13, 19, 36, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: rgba(99, 102, 241, 0.25);
-  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
+  background: rgba(17, 24, 45, 0.98);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.25);
   transform: translateY(-2px);
 }
 
 /* Custom Scrollbar Styles for Premium Look */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(2, 6, 23, 0.5);
+  background: rgba(2, 6, 23, 0.4);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(139, 92, 246, 0.15);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.4);
+  background: rgba(139, 92, 246, 0.35);
 }
 
-/* Modern Glowing Gradients */
-.glow-indigo {
-  box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.15);
+/* Premium Gradients and Glows */
+.glow-primary {
+  box-shadow: 0 0 60px -15px rgba(139, 92, 246, 0.18);
 }
 
 .glow-pink {
-  box-shadow: 0 0 50px -10px rgba(236, 72, 153, 0.15);
+  box-shadow: 0 0 60px -15px rgba(236, 72, 153, 0.12);
+}
+
+.text-gradient-premium {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Forms & Inputs styling - larger font size and high contrast text */
+.modern-input {
+  @apply w-full px-4 py-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all duration-300;
+}
+
+.modern-input-with-icon {
+  padding-left: 2.75rem !important;
 }
 
 /* Custom Keyframe Animations */
-@keyframes slideIn {
+@keyframes slideUp {
   from {
-    transform: translateY(1rem);
+    transform: translateY(12px);
     opacity: 0;
   }
   to {
@@ -85,25 +102,39 @@
   }
 }
 
-.animate-slide-in {
-  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-slide-up {
+  animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+    box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
   }
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
   }
 }
 
 .pulse-active {
   animation: pulse-ring 2s infinite;
 }
+

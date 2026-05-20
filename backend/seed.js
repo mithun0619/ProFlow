@@ -6,12 +6,12 @@ const Task = require('./models/Task');
 const Notification = require('./models/Notification');
 
 require('dotenv').config();
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/project-manager';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/project-manager';
 
 const seedDatabase = async () => {
   try {
     console.log('Connecting to database...');
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(MONGO_URL);
     console.log('Connected to MongoDB successfully!');
 
     // Clear existing data to avoid duplication and overlap

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardLayout from './layouts/DashboardLayout';
+import Toast from './components/Toast';
 
 // Pages Import
 import Login from './pages/Login';
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <Toast />
         <Routes>
           {/* PUBLIC PATHS */}
           <Route path="/login" element={<Login />} />
