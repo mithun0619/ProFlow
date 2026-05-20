@@ -14,8 +14,13 @@ connectDB();
 
 const app = express();
 
-// Standard Middlewares
-app.use(cors());
+// Standard Middlewares with robust CORS configuration for Vercel Serverless
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+}));
 app.use(express.json());
 
 // Hello API check
